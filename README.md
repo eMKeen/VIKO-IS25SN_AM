@@ -1,1 +1,2 @@
-# VIKO-IS25SN_AM
+## VIKO-IS25SN
+# Aleksandras Maskalkovas
