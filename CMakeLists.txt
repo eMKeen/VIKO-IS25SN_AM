@@ -16,4 +16,6 @@ add_executable(VIKO_IS25SN_AM main.cpp
         Salygos_Ciklai/task10.cpp
         Salygos_Ciklai/task11.cpp
         Salygos_Ciklai/task12.cpp
+        Masyvai/task13.cpp
+        Masyvai/task14.cpp
 )
