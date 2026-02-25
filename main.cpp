@@ -8,12 +8,17 @@ int task4();
 int task5();
 int task6();
 //----------
+//--salygos ir ciklai
 int task7();
 int task8();
 int task9();
 int task10();
 int task11();
 int task12();
+//----------
+//--Masyvai
+int task13();
+int task14();
 
 int main() {
     int p;
@@ -35,6 +40,9 @@ int main() {
     if (p == 10) return task10();
     if (p == 11) return task11();
     if (p == 12) return task12();
+//----------
+    if (p == 13) return task13();
+    if (p == 14) return task14();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;
