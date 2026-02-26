@@ -19,12 +19,16 @@ int task12();
 //--Masyvai
 int task13();
 int task14();
+//----1 Praktinis---
+//-----------
+int task15();
 
 int main() {
     int p;
     cout << "Kuria programa tikrinti: "<<endl;
     cout << "Kintamieji: Nuo 1 iki 6"<<endl;
     cout << "Salygos ir ciklai: Nuo 7 iki 12"<<endl;
+    cout << "Pirmas praktinis - Iskaitai - >>15<<"<<endl;
     cin >> p;
 
     if (p == 1) return task1();
@@ -43,6 +47,8 @@ int main() {
 //----------
     if (p == 13) return task13();
     if (p == 14) return task14();
+//----------
+    if (p == 15) return task15();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;
