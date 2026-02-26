@@ -1,5 +1,5 @@
 ## VIKO-IS25SN
-# Aleksandras Maskalkovas
+# Aleksandras Ma
 --
 ## 2026-02-25 - Praktines uzduotis - Kintamieji
 - Menu pasirinkimas - 1-->6
