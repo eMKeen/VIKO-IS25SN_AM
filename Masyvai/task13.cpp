@@ -9,21 +9,24 @@ using namespace std;
 
 int task13 () {
 
-    int masyvas[5],i,d,s;
+    int masyvas[5],i,d[2];
     for (i=0;i<5;i++) {
         cout<<"Iveskite "<<i+1<<" masyvo skaiciu"<<endl;
         cin>>masyvas[i-1];
     }
-    d=masyvas[0];
-    s=masyvas[0];
+    d[0]=masyvas[0];
+    d[1]=masyvas[0];
+    int s=0;
     for (i=0;i<5;i++) {
-        if (d<masyvas[i-1]) {
-            d=masyvas[i-1];
-        } else if (s>=masyvas[i-1]) {
-            s=masyvas[i-1];
+        s=s+masyvas[i];
+        if (d[0]<masyvas[i-1]) {
+            d[0]=masyvas[i-1];
+        } else if (d[1]>=masyvas[i-1]) {
+            d[1]=masyvas[i-1];
         }
     }
-    cout<<"Didziausias masyvo skaicius yra: "<<d<<endl;
-    cout<<"Maziausiais masyvo skaicius yra: "<<s<<endl;
+    cout<<"Didziausias masyvo skaicius yra: "<<d[0]<<endl;
+    cout<<"Maziausiais masyvo skaicius yra: "<<d[1]<<endl;
+    cout<<"Visu skaiciu suma: "<<s<<endl;
     return 0;
 }

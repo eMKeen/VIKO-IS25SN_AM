@@ -55,7 +55,6 @@ INR_Bendras   = 104.6918;
 INR_Pirkti    = 101.3862;
 INR_Parduoti  = 107.8546;*/
 
-#include <cmath>
 #include <iostream>
 #include <string>
 #include <format>
@@ -156,15 +155,15 @@ int task15() {
             switch (p) {
                 case 1:
                     VK[1]=VK[0]*VP[p-1];
-                    cout<<format("Jusu {0} {1} atitinka {2} {3}",round(VK[0]*100)/100,ATS[v1-1],round(VK[1]*100)/100,ATS[v2-1]);
+                    cout<<format("Jusu {0:.2f} {1} atitinka {2:.2f} {3}",VK[0],ATS[v1-1],VK[1],ATS[v2-1]);
                     break;
                 case 2:
                     VK[1]=VK[0]*VP[p-1];
-                    cout<<format("Uz {0} {1} Galesite isigyti {2} {3}",round(VK[0]*100)/100,ATS[v1-1],round(VK[1]*100)/100,ATS[v2-1]);
+                    cout<<format("Uz {0:.2f} {1} Galesite isigyti {2:.2f} {3}",VK[0],ATS[v1-1],VK[1],ATS[v2-1]);
                     break;
                 case 3:
                     VK[1]=VK[0]/(EUR[0]/VP[p-1]);
-                    cout<<format("Jusu {0} {1} galesite parduoti uz {2} {3}",round(VK[0]*100)/100,ATS[v1-1],round(VK[1]*100)/100,ATS[v2-1]);
+                    cout<<format("Jusu {0:.2f} {1} galesite parduoti uz {2:.2f} {3}",VK[0],ATS[v1-1],VK[1],ATS[v2-1]);
                     break;
                 default:
                     break;
@@ -175,15 +174,15 @@ int task15() {
             switch (p) {
                 case 1:
                     VK[1]=VK[0]/VP[p-1];
-                    cout<<format("Jusu {0} {1} atitinka {2} {3}",round(VK[0]*100)/100,ATS[v1-1],round(VK[1]*100)/100,ATS[3]);
+                    cout<<format("Jusu {0:.2f} {1} atitinka {2:.2f} {3}",VK[0],ATS[v1-1],VK[1],ATS[3]);
                     break;
                 case 2:
                     VK[1]=VK[0]/VP[p-1];
-                    cout<<format("Uz {0} {1} Galesite isigyti {2} {3}",round(VK[0]*100)/100,ATS[v1-1],round(VK[1]*100)/100,ATS[3]);
+                    cout<<format("Uz {0:.2f} {1} Galesite isigyti {2:.2f} {3}",VK[0],ATS[v1-1],VK[1],ATS[3]);
                     break;
                 case 3:
                     VK[1]=VK[0]/VP[p-1];
-                    cout<<format("Jusu {0} {1} galesite parduoti uz {2} {3}",round(VK[0]*100)/100,ATS[v1-1],round(VK[1]*100)/100,ATS[3]);
+                    cout<<format("Jusu {0:.2f} {1} galesite parduoti uz {2:.2f} {3}",VK[0],ATS[v1-1],VK[1],ATS[3]);
                     break;
                 default:
                     break;
