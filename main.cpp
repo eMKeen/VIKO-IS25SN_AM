@@ -22,6 +22,8 @@ int task14();
 //----1 Praktinis---
 //-----------
 int task15();
+//----2 praktinis ---
+int task16();
 
 int main() {
     int p;
@@ -49,6 +51,8 @@ int main() {
     if (p == 14) return task14();
 //----------
     if (p == 15) return task15();
+//----------
+    if (p == 16) return task16();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;
