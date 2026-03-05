@@ -31,6 +31,7 @@ int main() {
     cout << "Kintamieji: Nuo 1 iki 6"<<endl;
     cout << "Salygos ir ciklai: Nuo 7 iki 12"<<endl;
     cout << "Pirmas praktinis - Iskaitai - >>15<<"<<endl;
+    cout << "Antras praktinis - Iskaitai - >>16<<"<<endl;
     cin >> p;
 
     if (p == 1) return task1();
