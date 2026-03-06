@@ -31,40 +31,49 @@ void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int 
 
 int task16() {
     // --Masyvai ir kiti--
-    string MV[100]; // mokyniu Vardu ir Pavardziu masyvai
+    string MV[100]; // mokiniu Vardu ir Pavardziu masyvai
     int _uzmt = 0;// index`o uzimtumas
     int PZ[100][10]={0}; //pazymiu masyvas
     string dalykai[10] =
-    {
-        "Matematika", "Fizika", "Programavimas", "Biologija", "Kuno kultura",
-        "Geografija", "Istorija", "Gimtoji kalba", "Anglu kalba", "Dorinis ugdymas"
+        {
+        "Matem", "Fiz", "IT", "Bio", "Kuno K",
+        "Geo", "Ist", "Gim K", "Ang K", "Dor U"
         };
+    string _mokinis = "Mokiniai  | No";
+    int _ilgisBendras[11] = {0};  //Bazinis lenteles ilgis
+    int _ilgisVardu = _mokinis.length();
 
-    int m,p,kt,ms,ms1; // m - mokyniu index`as <> p - pazymiu index`as <> kt - keisti arba trinti index`as
+    int m,p,kt,ms,ms1; // m - mokiniu index`as <> p - pazymiu index`as <> kt - keisti arba trinti index`as
     int i,j,l;
     int _tekstoIlgis; // Teksto ilgis
-
+    int _ciklas = 0;
     string _text;
 
+    _ilgisBendras[0] = _mokinis.length();
+    for (i=0; i<10; i++) {
+        _ilgisBendras[0] += dalykai[i].length();
+        _ilgisBendras[i+1] = dalykai[i].length();
+    }
+
+    // --- Startas ---
+
+    _text="Mokiniu pazymiu sistema";
+    _tekstoIlgis=_text.length();
+    tbl(_tekstoIlgis,_text,1,1,-1);
+
+    //---Meniu---
+
+    string MS[] = {
+        "Pasirinkite norima operacija:",
+        "Ivesti mokiniu vardus ir ju pazymius - 1 ",
+        "Perziureti visu mokiniu pazymius - 2 ",
+        "Perziureti mokinio pazymius - 3 ",
+        "Atnaujinti mokinio pazymi - 4 ",
+        "Pasalinti mokini is saraso - 5 ",
+        "Nutraukti programa - 0 "
+    };
+
     while (true) {
-
-
-        // --- Startas ---
-        _text="Mokiniu pazymiu sistema";
-        _tekstoIlgis=_text.length();
-        tbl(_tekstoIlgis,_text,1,1,-1);
-
-        //---Meniu---
-
-         string MS[] = {
-             "Pasirinkite norima operacija:",
-             "Ivesti mokiniu vardus ir ju pazymius - 1 ",
-             "Perziureti visu mokiniu pazymius - 2 ",
-             "Perziureti mokinio pazymius - 3 ",
-             "Atnaujinti moyknio pazymi - 4 ",
-             "Pasalinti mokini is saraso - 5 ",
-             "Nutraukti programa - 0 "
-         };
 
         int _menuPasir = size(MS);                       //Masyvo ilgis
         _tekstoIlgis = ilgiausiaiTekstas(MS, _menuPasir);// Tikrinimas ilgiausio elemento (vnt)
@@ -82,6 +91,12 @@ int task16() {
 
         //---Ivestis Meniu----
         cin >> ms;
+        while (_uzmt == 0 && ms >= 2 && ms <= 5) {  // tikrinam ar yra ivestis
+            cout << format("! - Siometu irasu nera \n"
+                           "! - Kad ivesti nauja irasa spauskite - 1\n"
+                           "! - Nutraukti programa spauskite - 0") << endl;
+            cin >> ms;
+        }
 
         while (true) {
             switch (ms) {
@@ -106,20 +121,69 @@ int task16() {
                     for ( m=_uzmt; m<ms1; m++) {
                         cout << format("<<===================>> \n"
                         "Iveskite mokinio varda : ");
-                        cin>>MV[m];
+                        cin.ignore();
+                        getline (cin,MV[m]);
+                        if (m+1 < 10) {
+                            MV[m] += format("  |  {}",m+1);
+                        } else if (m+1 >= 10 && m+1 <100) {
+                            MV[m] += format("  | {}",m+1);
+                        } else if (m+1 == 100) {
+                            MV[m] += format("  |{}",m+1);
+                        }
                         _uzmt++;
                         for (p=0; p<10; p++) {
                             cout << format("{} - Iveskite pazymi, dalikas: {} : ",p+1,dalykai[p]);
                             cin>>PZ[m][p];
-                            while (PZ[m][p] < 1 || PZ[m][p] > 10) {
-                                cout<<"! - Blogai ivestas pazymys, galimi variantai nuo 1 iki 10. Pakartotike : ";
+                            while (PZ[m][p] < 0 || PZ[m][p] > 10) {
+                                cout<<"! - Blogai ivestas pazymys, galimi variantai nuo 0 iki 10. Pakartotike : ";
                                 cin>>PZ[m][p];
                             }
                         }
                     }
                 }break;
                 case 2: {
+                    //-----Select Maniu 2 ----
+                    int _chk = ilgiausiaiTekstas(MV, _uzmt);// Tikrinimas ilgiausio elemento (vnt)
 
+                    //---- Pirmo stulpelio ilgis ir bendras lenteles ilgis ----
+                    if (_chk > _ilgisVardu) {
+                        _ilgisVardu = _chk;
+                        _ilgisBendras[0] += _ilgisVardu - _mokinis.length();
+                    }  else if (_ilgisVardu > _mokinis.length() && _chk >= _mokinis.length()) {
+                         _ilgisBendras[0] -= _ilgisVardu - _chk;
+                    }
+
+                    _menuLines = _uzmt + 4;  // Meniu eiluciu kiekis
+                    for (m=1; m<=_menuLines; m++) {
+                        if (m == 1 || m == 3 || m == _menuLines) {
+                            tbl(_ilgisBendras[0]+40,"=",_menuLines,m,0);
+                        } else if (m == 2) {
+                            for (p=0; p<11; p++) {
+                                if (p == 0) {
+                                    tbl(_ilgisVardu,_mokinis,_menuLines,m,0);
+                                } else if (p <10) {
+                                    tbl(_ilgisBendras[p],dalykai[p-1],_menuLines,m,0);
+                                } else if (p == 10) {
+                                    tbl(_ilgisBendras[p],dalykai[p-1],_menuLines,m,1);
+                                }
+                            }
+                        } else if (m > 3) {
+                            for (p=0; p<11; p++) {
+                                if (p == 0) {
+                                    tbl(_ilgisVardu,MV[m-4],_menuLines,m,0);
+                                } else if (p <10) {
+                                    tbl(_ilgisBendras[p],to_string(PZ[m-4][p-1]),_menuLines,m,0);
+                                } else if (p == 10) {
+                                    tbl(_ilgisBendras[p],to_string(PZ[m-4][p-1]),_menuLines,m,1);
+                                }
+                            }
+                        }
+                    }
+                    string _wait;
+                    cout<<endl;
+                    cout<<">>>>Kad testi spauskite ENTER<<<<"<<endl;
+                    cin.ignore();
+                    getline(cin,_wait);
                 }break;
                 case 3: {
 
@@ -179,15 +243,15 @@ void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int 
 
     if (_kitaEilute > -1) {
         if (_eilutesNum==1 || _eilutesNum==3 || _eilutesNum==_ilgisLenget) {
-            for (i=0;i<=_tekstoIlgis+6;i++) {
+            for (i=0;i<_tekstoIlgis+4;i++) {
                 cout<<"=";
             }
             cout<<endl;
         } else {
             if (_kitaEilute == 0) {
-                cout<<"|  "<<setw(_tekstoIlgis)<<_text<<"   |";
+                cout<<"| "<<setw(_tekstoIlgis)<<_text<<" |";
             } else {
-                cout<<"|  "<<setw(_tekstoIlgis)<<_text<<"   |";
+                cout<<"| "<<setw(_tekstoIlgis)<<_text<<" |";
                 cout<<endl;
             }
         }
