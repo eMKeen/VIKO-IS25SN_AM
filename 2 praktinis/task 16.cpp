@@ -39,20 +39,29 @@ int task16() {
         "Matem", "Fiz", "IT", "Bio", "Kuno K",
         "Geo", "Ist", "Gim K", "Ang K", "Dor U"
         };
+    string dalykaiPilnas[] =
+        { "Pasirinkite dalyka: ",
+        "Matematika", "Fizika", "Informatika", "Biologija", "Kuno Kultura",
+        "Geografija", "Istorija", "Gimtoji Kalba", "Anglu Kalba", "Dorinis Ugdymas"
+        };
     string _mokinis = "Mokiniai  | No";
     int _ilgisBendras[11] = {0};  //Bazinis lenteles ilgis
     int _ilgisVardu = _mokinis.length();
 
     int m,p,kt,ms,ms1; // m - mokiniu index`as <> p - pazymiu index`as <> kt - keisti arba trinti index`as
-    int i,j,l;
+    int i,l;
     int _tekstoIlgis; // Teksto ilgis
-    int _ciklas = 0;
     string _text;
 
     _ilgisBendras[0] = _mokinis.length();
     for (i=0; i<10; i++) {
         _ilgisBendras[0] += dalykai[i].length();
         _ilgisBendras[i+1] = dalykai[i].length();
+    }
+
+    // --- Dailykai pilnas transformacija ---
+    for (i=1; i<size(dalykaiPilnas); i++) {
+        dalykaiPilnas[i] += format(" - {}",i);
     }
 
     // --- Startas ---
@@ -242,9 +251,74 @@ int task16() {
 
                 }break;
                 case 4: {
+                    //-----Select Maniu 4 ----
+                    _text = format("Iveskite mokinio eiles numeri, kurio pazymi norite atnaujinti. Irasu - {}",_uzmt);
+                    _tekstoIlgis=_text.length();
+                    tbl(_tekstoIlgis,_text,1,1,-1);
+                    cin>>ms1;
+                    while (ms1 < 1 || ms1 > _uzmt) {
+                        _text = format("Ivedimo intervalas nuo 1 iki {}, pakartokite:",_uzmt);
+                        _tekstoIlgis=_text.length();
+                        tbl(_tekstoIlgis,_text,1,1,-1);
+                        cin>>ms1;
+                    }
 
+                    _menuPasir = size(dalykaiPilnas);                       //Masyvo ilgis
+                    _tekstoIlgis = ilgiausiaiTekstas(dalykaiPilnas, _menuPasir);// Tikrinimas ilgiausio elemento (vnt)
+
+                    _menuLines = _menuPasir + 3; // Meniu eiluciu kiekis
+                    for (l=1;l<=_menuLines;l++) {
+                        if (l == 1 || l == 3 || l == _menuLines) {
+                            tbl(_tekstoIlgis,"=",_menuLines,l,0);
+                        } else if ( l == 2) {
+                            tbl(_tekstoIlgis,dalykaiPilnas[l-2],_menuLines,l,1);
+                        } else if (l > 3) {
+                            tbl(_tekstoIlgis,dalykaiPilnas[l-3],_menuLines,l,1);
+                        }
+                    }
+                    cin>>kt;
+                    while (kt < 1 || kt > _menuPasir) {
+                        _text = format("Ivedimo intervalas nuo 1 iki {}, pakartokite:",_menuPasir-1);
+                        _tekstoIlgis=_text.length();
+                        tbl(_tekstoIlgis,_text,1,1,-1);
+                        cin>>kt;
+                    }
+                    cout << format("Iveskite nauja pazymi: ");
+                    int _naujasPazymis;
+                    cin>>_naujasPazymis;
+                    PZ[ms1-1][kt-1] = _naujasPazymis;
+                    cout << format(">>>>Pazymis sekmingai pakeistas<<<<")<<endl;
+
+                    string _wait;
+                    cout<<">>>>Kad testi spauskite ENTER<<<<"<<endl;
+                    cin.ignore();
+                    getline(cin,_wait);
                 }break;
                 case 5: {
+                    //-----Select Maniu 5 ----
+                    _text = format("Iveskite eiles numeri, kuri norite pasalinti. Irasu - {}",_uzmt);
+                    _tekstoIlgis=_text.length();
+                    tbl(_tekstoIlgis,_text,1,1,-1);
+                    cin>>ms1;
+                    while (ms1 < 1 || ms1 > _uzmt) {
+                        _text = format("Ivedimo intervalas nuo 1 iki {}, pakartokite:",_uzmt);
+                        _tekstoIlgis=_text.length();
+                        tbl(_tekstoIlgis,_text,1,1,-1);
+                        cin>>ms1;
+                    }
+                    for (i=ms1; i<_uzmt; i++) {
+                        if (i < 10) {
+                            MV[i-1] = MV[i].erase(MV[i].length() - 3) + format("  {}",i);
+                        } else if (i >= 10 && i <100) {
+                            MV[i-1] = MV[i].erase(MV[i].length() - 2) + format(" {}",i);
+                        } else if (i == 100) {
+                            MV[i-1] = MV[i].erase(MV[i].length() - 1) + format("{}",i);
+                        }
+                        for (l=0; l<10; l++) {
+                            PZ[ms1-1][l] = PZ[ms1][l];
+                        }
+                    }
+                    _uzmt--;
 
                 }break;
                 default: {
@@ -256,14 +330,9 @@ int task16() {
             }break;
         }
 
-
-        //---Pazymiu Lentele---
-
         //----Pabaiga----
 
         cout<<endl;
-        cout<<"--"<<endl;
-        //return 0;
     }
 }
 
