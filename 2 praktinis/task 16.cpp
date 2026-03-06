@@ -186,6 +186,59 @@ int task16() {
                     getline(cin,_wait);
                 }break;
                 case 3: {
+                    //-----Select Maniu 3 ----
+                    _text = format("Iveskite eiles numeri, kuri norite peziureti. Irasu - {}",_uzmt);
+                    _tekstoIlgis=_text.length();
+                    tbl(_tekstoIlgis,_text,1,1,-1);
+                    cin>>ms1;
+                    while (ms1 < 1 || ms1 > _uzmt) {
+                        _text = format("Ivedimo intervalas nuo 1 iki {}, pakartokite:",_uzmt);
+                        _tekstoIlgis=_text.length();
+                        tbl(_tekstoIlgis,_text,1,1,-1);
+                        cin>>ms1;
+                    }
+
+                    int _chk = ilgiausiaiTekstas(MV, _uzmt);// Tikrinimas ilgiausio elemento (vnt)
+
+                    //---- Pirmo stulpelio ilgis ir bendras lenteles ilgis ----
+                    if (_chk > _ilgisVardu) {
+                        _ilgisVardu = _chk;
+                        _ilgisBendras[0] += _ilgisVardu - _mokinis.length();
+                    }  else if (_ilgisVardu > _mokinis.length() && _chk >= _mokinis.length()) {
+                         _ilgisBendras[0] -= _ilgisVardu - _chk;
+                    }
+
+                    _menuLines = 5;  // Meniu eiluciu kiekis - Tik 1 mokinys
+                    for (m=1; m<=_menuLines; m++) {
+                        if (m == 1 || m == 3 || m == _menuLines) {
+                            tbl(_ilgisBendras[0]+40,"=",_menuLines,m,0);
+                        } else if (m == 2) {
+                            for (p=0; p<11; p++) {
+                                if (p == 0) {
+                                    tbl(_ilgisVardu,_mokinis,_menuLines,m,0);
+                                } else if (p <10) {
+                                    tbl(_ilgisBendras[p],dalykai[p-1],_menuLines,m,0);
+                                } else if (p == 10) {
+                                    tbl(_ilgisBendras[p],dalykai[p-1],_menuLines,m,1);
+                                }
+                            }
+                        } else if (m > 3) {
+                            for (p=0; p<11; p++) {
+                                if (p == 0) {
+                                    tbl(_ilgisVardu,MV[ms1-1],_menuLines,m,0);
+                                } else if (p <10) {
+                                    tbl(_ilgisBendras[p],to_string(PZ[m-4][p-1]),_menuLines,m,0);
+                                } else if (p == 10) {
+                                    tbl(_ilgisBendras[p],to_string(PZ[m-4][p-1]),_menuLines,m,1);
+                                }
+                            }
+                        }
+                    }
+                    string _wait;
+                    cout<<endl;
+                    cout<<">>>>Kad testi spauskite ENTER<<<<"<<endl;
+                    cin.ignore();
+                    getline(cin,_wait);
 
                 }break;
                 case 4: {
