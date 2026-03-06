@@ -8,3 +8,5 @@
 - Menu pasirinkimas - 13-->14
 ## 2026-02-26 - Pirmas praktinis darbas
 - Menu pasirinkimas - 15
+## 2026-03-06 - Antras praktinis darbas
+- Menu pasirinkimas - 16
