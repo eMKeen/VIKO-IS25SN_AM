@@ -310,9 +310,9 @@ int task16() {
                         if (i < 10) {
                             MV[i-1] = MV[i].erase(MV[i].length() - 3) + format("  {}",i);
                         } else if (i >= 10 && i <100) {
-                            MV[i-1] = MV[i].erase(MV[i].length() - 2) + format(" {}",i);
+                            MV[i-1] = MV[i].erase(MV[i].length() - 3) + format(" {}",i);
                         } else if (i == 100) {
-                            MV[i-1] = MV[i].erase(MV[i].length() - 1) + format("{}",i);
+                            MV[i-1] = MV[i].erase(MV[i].length() - 3) + format("{}",i);
                         }
                         for (l=0; l<10; l++) {
                             PZ[ms1-1][l] = PZ[ms1][l];

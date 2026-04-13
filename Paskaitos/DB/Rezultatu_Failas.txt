@@ -1,0 +1,4 @@
+Rezultatas Duomenu faile
+Bendrai skaiciu faile - 12
+Suma: 1050
+Vidurkis: 87.5

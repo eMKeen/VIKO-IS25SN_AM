@@ -24,6 +24,8 @@ int task14();
 int task15();
 //----2 praktinis ---
 int task16();
+//----Paskaitu prog ---
+int Darbas_su_failais();
 
 int main() {
     int p;
@@ -32,6 +34,7 @@ int main() {
     cout << "Salygos ir ciklai: Nuo 7 iki 12"<<endl;
     cout << "Pirmas praktinis - Iskaitai - >>15<<"<<endl;
     cout << "Antras praktinis - Iskaitai - >>16<<"<<endl;
+    cout << "Darbas su Failais           - >>17<<"<<endl;
     cin >> p;
 
     if (p == 1) return task1();
@@ -40,20 +43,22 @@ int main() {
     if (p == 4) return task4();
     if (p == 5) return task5();
     if (p == 6) return task6();
-//---------
+    //---------
     if (p == 7) return task7();
     if (p == 8) return task8();
     if (p == 9) return task9();
     if (p == 10) return task10();
     if (p == 11) return task11();
     if (p == 12) return task12();
-//----------
+    //----------
     if (p == 13) return task13();
     if (p == 14) return task14();
-//----------
+    //----------
     if (p == 15) return task15();
-//----------
+    //----------
     if (p == 16) return task16();
+    //----------
+    if (p == 17) return Darbas_su_failais();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;

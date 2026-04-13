@@ -20,4 +20,5 @@ add_executable(VIKO_IS25SN_AM main.cpp
         Masyvai/task14.cpp
         "1 praktinis/task15.cpp"
         "2 praktinis/task 16.cpp"
+        Paskaitos/Darbas_su_failais.cpp
 )
