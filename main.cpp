@@ -26,6 +26,7 @@ int task15();
 int task16();
 //----Paskaitu prog ---
 int Darbas_su_failais();
+int task18();
 
 int main() {
     int p;
@@ -35,6 +36,7 @@ int main() {
     cout << "Pirmas praktinis - Iskaitai - >>15<<"<<endl;
     cout << "Antras praktinis - Iskaitai - >>16<<"<<endl;
     cout << "Darbas su Failais           - >>17<<"<<endl;
+    cout << "Funkcijos                   - >>18<<"<<endl;
     cin >> p;
 
     if (p == 1) return task1();
@@ -59,6 +61,7 @@ int main() {
     if (p == 16) return task16();
     //----------
     if (p == 17) return Darbas_su_failais();
+    if (p == 18) return task18();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;
