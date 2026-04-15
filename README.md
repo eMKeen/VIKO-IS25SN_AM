@@ -14,3 +14,5 @@
 - Menu pasirinkimas - 17
 ## 2026-04-14 - Praktines uzduotis - Funkcijos
 - Menu pasirinkimas - 18
+## 2026-04-14 - Kontrolinio uzduotis
+- Menu pasirinkimas - 19 --> 21
