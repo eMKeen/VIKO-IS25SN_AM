@@ -336,6 +336,9 @@ int task16() {
     }
 }
 
+/*
+-->>> PERKELTA i 22 TASK <<<--
+
 int ilgiausiaiTekstas(string _tekstoMasyvas[],int n) {  // Tikrinam ilgiausia teksta
 
     int _tekstoIlgis = 0;
@@ -379,3 +382,4 @@ void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int 
         }
     }
 }
+*/

@@ -31,6 +31,8 @@ int task18();
 int K1();
 int K2();
 int K3();
+//----3_praktinis ---
+int task22();
 
 int main() {
     int p;
@@ -44,6 +46,7 @@ int main() {
     cout << "Kontrolionio scriptas 1 - >>19<<"<<endl;
     cout << "Kontrolionio scriptas 2 - >>20<<"<<endl;
     cout << "Kontrolionio scriptas 3 - >>21<<"<<endl;
+    cout << "Trevias praktinis - iskaitai - >>22<<"<<endl;
     cin >> p;
 
     if (p == 1) return task1();
@@ -73,6 +76,8 @@ int main() {
     if (p == 19) return K1();
     if (p == 20) return K2();
     if (p == 21) return K3();
+    //----------
+    if (p == 22) return task22();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;

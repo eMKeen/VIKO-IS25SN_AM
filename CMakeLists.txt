@@ -23,4 +23,5 @@ add_executable(VIKO_IS25SN_AM main.cpp
         Paskaitos/Darbas_su_failais.cpp
         Funkcijos_rekursija/task18.cpp
         Kontrolinis/taskKontrolinis.cpp
+        3_praktinis/task22.cpp
 )
