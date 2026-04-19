@@ -71,13 +71,27 @@ Galutinė suma                             5.93€
 #include <fstream>
 using namespace std;
 
+int ilgiausiaiTekstas(string _tekstoMasyvas[],int n);
+void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute);
+
 struct menuItemType {
     string menuItem;
     double menuPrice;
-};
 
-int ilgiausiaiTekstas(string _tekstoMasyvas[],int n);
-void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute);
+    void getData(ifstream& _mf) {
+        getline(_mf, menuItem, ';');
+        _mf >> menuPrice;
+        _mf.ignore();
+    }
+
+    void showMenu() {
+        cout << menuItem << " " << menuPrice << endl;
+    }
+
+    void printCheck(double suma) {
+        cout << "Moketi: " << suma << endl;
+    }
+};
 
 int task22() {
     string _restoranas = "Kaimynu Restoranas";
@@ -95,14 +109,12 @@ int task22() {
         cout << "failas atidarytas" << endl;
         cout << endl;
 
-        string _eilute;
-        while (getline(_mf, _eilute)) {
-            int _skirtukas = _eilute.find(';');
-            if (_skirtukas != string::npos) {
-                _menuList[_menuKiekis].menuItem = _eilute.substr(0, _skirtukas);
-                _menuList[_menuKiekis].menuPrice = stod(_eilute.substr(_skirtukas+1));
-                _menuKiekis++;
-            }
+        //Reikia naudoti >>GetData<<
+
+        while (_mf) {
+            _menuList[_menuKiekis].getData(_mf);
+            if (_mf.fail()) {break;}
+            _menuKiekis++;
         }
     } else {
         cout << "faila nepavyko atidaryti" << endl;
@@ -116,6 +128,8 @@ int task22() {
     for ( i= 0; i < _menuKiekis; i++) {
         cout << _menuList[i].menuItem << " - " << _menuList[i].menuPrice << endl;
     }
+
+
     cin.ignore();
     string wait;
     getline(cin, wait);
