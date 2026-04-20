@@ -72,7 +72,8 @@ Galutinė suma                             5.93€
 using namespace std;
 
 int ilgiausiaiTekstas(string _tekstoMasyvas[],int n);
-void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute);
+void tbl2(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute);
+void showMenu(int _tekstoIlgis, string _text[][2], int _eilutesNumeris, int _select);
 
 struct menuItemType {
     string menuItem;
@@ -84,9 +85,6 @@ struct menuItemType {
         _mf.ignore();
     }
 
-    void showMenu() {
-        cout << menuItem << " " << menuPrice << endl;
-    }
 
     void printCheck(double suma) {
         cout << "Moketi: " << suma << endl;
@@ -94,13 +92,13 @@ struct menuItemType {
 };
 
 int task22() {
-    string _restoranas = "Kaimynu Restoranas";
+    string _restoranas = "Sveiki atvykę į \"Kaimynų\" restoraną";
 
     menuItemType _menuList[100];
     int i;
     int _menuKiekis = 0;
     int _tekstoIlgis;
-    string _text;
+    string _text[100][2];
 
     ifstream _mf; // meniu failas
     _mf.open("../3_praktinis/DB/menu.txt");
@@ -114,6 +112,8 @@ int task22() {
         while (_mf) {
             _menuList[_menuKiekis].getData(_mf);
             if (_mf.fail()) {break;}
+            _text[_menuKiekis][0] = _menuList[_menuKiekis].menuItem;
+            _text[_menuKiekis][1] = to_string(_menuList[_menuKiekis].menuPrice).substr(0,4);
             _menuKiekis++;
         }
     } else {
@@ -121,12 +121,25 @@ int task22() {
     }
     _mf.close();
 
-    _tekstoIlgis=_restoranas.length();
-    tbl(_tekstoIlgis,_restoranas,1,1,-1);
+    _tekstoIlgis = _restoranas.length();
+    for (i = 0; i < _menuKiekis; i++) {
+        if ( _tekstoIlgis < _text[i][0].length() + _text[i][1].length()) {
+            _tekstoIlgis = _text[i][0].length() + _text[i][1].length();
+        }
+    }
+    _tekstoIlgis += 4; //Baziniai papildomi elementai
+    tbl2(_tekstoIlgis,_restoranas,1,1,-1);
     cout << endl;
 
-    for ( i= 0; i < _menuKiekis; i++) {
-        cout << _menuList[i].menuItem << " - " << _menuList[i].menuPrice << endl;
+    for ( i = 0; i < _menuKiekis; i++) {
+        if (i == 0 ) {
+            showMenu(_tekstoIlgis,_text,i,0);
+        } else {
+            showMenu(_tekstoIlgis,_text,i,1);
+        }
+
+
+        //cout << _menuList[i].menuItem << " - " << _menuList[i].menuPrice << endl;
     }
 
 
@@ -134,6 +147,49 @@ int task22() {
     string wait;
     getline(cin, wait);
     return 0;
+}
+
+void showMenu(int _tekstoIlgis, string _text[][2], int _eilutesNumeris, int _select) {
+    string _menuName = "Meniu";
+    int _start = 0;
+    int _pasirinkimas;
+    if (_tekstoIlgis% 2 == 1) {_tekstoIlgis++;} // reikalingas lyginis
+    switch (_select) {
+        case 0: {
+            //Menu
+            _start = _tekstoIlgis - _menuName.length();
+            for (int i = 0; i < _start/2; i++) {
+                cout << " ";
+            }
+            cout << _menuName << endl << endl;
+
+            //Select 1
+            _pasirinkimas = 4;
+            _start = _tekstoIlgis - _text[_eilutesNumeris][0].length() - _text[_eilutesNumeris][1].length() - _pasirinkimas;
+            cout << " " << _eilutesNumeris + 1 << "  - " << _text[_eilutesNumeris][0];
+            for ( int i = 0 ; i < _start; i++ ) {
+                cout << " ";
+            }
+            cout << _text[_eilutesNumeris][1] << endl;
+        }break;
+        default: {
+            //Select 2 ir ...
+            if ( _eilutesNumeris + 1 < 10) { //Pasirinkimo numeris + tarpas
+                _pasirinkimas = 4;
+                _start = _tekstoIlgis - _text[_eilutesNumeris][0].length() - _text[_eilutesNumeris][1].length() - _pasirinkimas;
+                cout << " " << _eilutesNumeris + 1 << "  - " << _text[_eilutesNumeris][0];
+            } else {
+                _pasirinkimas = 5;
+                _start = _tekstoIlgis - _text[_eilutesNumeris][0].length() -_text[_eilutesNumeris][1].length() - _pasirinkimas;
+                cout << " " << _eilutesNumeris + 1 << " - " << _text[_eilutesNumeris][0];
+            }
+            for ( int i = 0 ; i < _start ; i++ ) {
+                cout << " ";
+            }
+
+            cout << _text[_eilutesNumeris][1] << endl;
+        }break;
+    }
 }
 
 int ilgiausiaiTekstas(string _tekstoMasyvas[],int n) {  // Tikrinam ilgiausia teksta
@@ -147,33 +203,33 @@ int ilgiausiaiTekstas(string _tekstoMasyvas[],int n) {  // Tikrinam ilgiausia te
     return _tekstoIlgis;
 }
 
-void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute) {
+void tbl2(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute) {
     int i,l;
 
     if (_kitaEilute == -1) {
         for (l=1;l<=3;l++) {
             if (l==1 || l==3) {
-                for (i=0;i<=_tekstoIlgis+6;i++) {
+                for (i=0;i<=_tekstoIlgis;i++) {
                     cout<<"=";
                 }
                 cout<<endl;
             } else {
-                cout<<"|  "<<setw(_tekstoIlgis)<<_text<<"   |"<<endl;
+                cout<<"| "<<setw(_tekstoIlgis)<<_text<<"  |"<<endl;
             }
         }
     }
 
     if (_kitaEilute > -1) {
         if (_eilutesNum==1 || _eilutesNum==3 || _eilutesNum==_ilgisLenget) {
-            for (i=0;i<_tekstoIlgis+4;i++) {
+            for (i=0;i<_tekstoIlgis;i++) {
                 cout<<"=";
             }
             cout<<endl;
         } else {
             if (_kitaEilute == 0) {
-                cout<<"| "<<setw(_tekstoIlgis)<<_text<<" |";
+                cout<<"| "<<setw(_tekstoIlgis)<<_text<<"  |";
             } else {
-                cout<<"| "<<setw(_tekstoIlgis)<<_text<<" |";
+                cout<<"| "<<setw(_tekstoIlgis)<<_text<<"  |";
                 cout<<endl;
             }
         }

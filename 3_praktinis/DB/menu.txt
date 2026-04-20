@@ -1,11 +1,11 @@
-Kiausiniene;1.45
-Kiaulienos sonine su keptu kiausiniu;2.45
-Keksiukas su vysnia;0.99
-Prancuziskas skrebutis;1.99
-Vaisiu salotos;2.49
-Pusryciu dribsniai;0.69
-Kaimynu kava;0.50
-Speciali kaimynu arbata;0.75
-Sriuba Kaimynu Svente;5.99
-Kaimynu desertas;3.59
-Kaimynu saslykas;6.19
+Kiaušinienė;1.45
+Kiaulienos šoninė su keptu kiaušiniu;2.45
+Keksiukas su vyšnia;0.99
+Prancūziškas skrebutis;1.99
+Vaisių salotos;2.49
+Pusrycių dribsniai;0.69
+Kaimynų kava;0.50
+Plikyta kaimynų arbata;0.75
+Sriuba "Kaimynų Švente";5.99
+Kaimynų desertas;3.59
+Kaimynų šašlykas;6.19

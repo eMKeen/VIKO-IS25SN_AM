@@ -349,7 +349,7 @@ int ilgiausiaiTekstas(string _tekstoMasyvas[],int n) {  // Tikrinam ilgiausia te
     }
     return _tekstoIlgis;
 }
-
+*/
 void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int _kitaEilute) {
     int i,l;
 
@@ -382,4 +382,3 @@ void tbl(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int 
         }
     }
 }
-*/

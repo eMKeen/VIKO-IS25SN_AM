@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 using namespace std;
 
 int task1();
@@ -35,6 +36,8 @@ int K3();
 int task22();
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     int p;
     cout << "Kuria programa tikrinti: "<<endl;
     cout << "Kintamieji: Nuo 1 iki 6"<<endl;
