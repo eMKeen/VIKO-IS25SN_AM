@@ -16,3 +16,17 @@
 - Menu pasirinkimas - 18
 ## 2026-04-14 - Kontrolinio uzduotis
 - Menu pasirinkimas - 19 --> 21
+## 2026-04-14 - Trecias praktinis darbas
+### Menu pasirinkimas - 22 (task 22)
+1. Nuskaitymas iš failo
+2. Naudojamos 3 funkcijos: getData, showMenu, printCheck
+3. Meniu pasirinkimas su nurodymais ir apsaugomis nuo neteisingo įvedimo arba raidžių
+4. Lietuvių kalbos patikra, kad linijos būtų lygios
+5. Teisingai apskaičiuotos tarpinės sumos ir bendra suma
+6. Visi skaičiai pateikiami 2 skaitmenų po kablelio tikslumu
+### Papildomos funkcijos:
+1. Meniu peržiūra su numeracija
+2. Galimybė pašalinti iš meniu prieš užsakymą / čekio spausdinimą
+3. Galimybė papildyti užsakymą
+4. Print Check automatiškai išvalo įvesties buferį ir siūlo užpildyti naują užsakymą
+5. Receipt numeruojamas, kvito numeris generuojamas automatiškai ir tęsiamas
