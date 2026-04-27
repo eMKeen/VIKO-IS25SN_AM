@@ -69,6 +69,7 @@ Galutinė suma                             5.93€
 #include <iomanip>
 #include <iterator>
 #include <fstream>
+#include <climits>
 using namespace std;
 
 int ilgiausiaiTekstas(string _tekstoMasyvas[],int n);
@@ -76,6 +77,9 @@ void tbl2(int _tekstoIlgis, string _text, int _ilgisLenget, int _eilutesNum, int
 void showMenu(int _tekstoIlgis, string _text, double _price, int _eilutesNumeris, int _select, int _pasirinkimas);
 int myliuLietuvybe(const string& txt);
 int menuSelect(int _select, int _kiekis, int _notNULL);
+void printCheck(int _tekstoIlgis, string _text, double _price, int _eilutesNumeris, int _select, int _pasirinkimas);
+bool krepselis(int _menuKiekis, int _patiekaluPasirinkimas[][2]);
+
 
 struct menuItemType {
     string menuItem;
@@ -85,11 +89,6 @@ struct menuItemType {
         getline(_mf, menuItem, ';');
         _mf >> menuPrice;
         _mf.ignore();
-    }
-
-
-    void printCheck(double suma) {
-        cout << "Moketi: " << suma << endl;
     }
 };
 
@@ -113,8 +112,6 @@ int task22() {
     if (_mf.is_open()) {
         cout << "failas atidarytas" << endl;
         cout << endl;
-
-        //Reikia naudoti >>GetData<<
 
         while (_mf) {
             _menuList[_menuKiekis].getData(_mf);
@@ -165,7 +162,6 @@ int task22() {
                 tbl2(_ilgiausiasTektas,mainMenu[l-3],_menuLines,l,1);
             }
         }
-        cin >> i;
         _select = menuSelect(i, size(mainMenu) - 2,0);
 
         switch (_select) {
@@ -183,37 +179,21 @@ int task22() {
                     }
                     cout <<endl;
                     cout << " Pasirinkite patiekalą : ";
-                    cin >> i;
-                    cout << endl;
                     _select = menuSelect(i, _menuKiekis + 1,1);
+                    cout << endl;
                     cout << " Pasirinkite patiekalų kiekį : ";
-                    cin >> i;
+                    i = menuSelect(i, 50,1);
                     cout << endl;
                     _patiekaluPasirinkimas[_select - 1][0] += i;
                     cout << "-----------------------------" << endl;
                     cout << "Grišti į pagrindinį menių - 0" << endl;
                     cout << "Pasirinkti kitą patiekalą - 1" << endl;
-                    cin >> i;
                     _select = menuSelect(i, 2,0);
                     if ( _select == 0) {break;}
                 }
             } break;
             case 2: {
-                int _krepselis = 0;
-                for (i = 0; i < _menuKiekis; i++) {
-                    if (_patiekaluPasirinkimas[i][0] != 0) {
-                        _krepselis++;
-                    }
-                }
-                if (_krepselis == 0) {
-                    cout << "-------------------------------------------------" << endl;
-                    cout << " Jūsų krepšelis tusčias, prašome pasirinkti prekę" << endl;
-                    cout << " Spauskite ENTER kad testi" << endl;
-                    string wait;
-                    cin.ignore();
-                    getline(cin,wait);
-                    break;
-                }
+                if (krepselis(_menuKiekis,_patiekaluPasirinkimas)) {break;}
                 _eilesNumeris = 0;
                 _totalPrice = 0;
                 cout << "--------------------------" << endl;
@@ -239,21 +219,7 @@ int task22() {
             } break;
             case 3: {
                 while (true) {
-                    int _krepselis = 0;
-                    for (i = 0; i < _menuKiekis; i++) {
-                        if (_patiekaluPasirinkimas[i][0] != 0) {
-                            _krepselis++;
-                        }
-                    }
-                    if (_krepselis == 0) {
-                        cout << "-------------------------------------------------" << endl;
-                        cout << " Jūsų krepšelis tusčias, prašome pasirinkti prekę" << endl;
-                        cout << " Spauskite ENTER kad testi" << endl;
-                        string wait;
-                        cin.ignore();
-                        getline(cin,wait);
-                        break;
-                    }
+                    if (krepselis(_menuKiekis,_patiekaluPasirinkimas)) {break;}
                     _eilesNumeris = 0;
                     _totalPrice = 0;
                     cout << "--------------------------" << endl;
@@ -269,11 +235,10 @@ int task22() {
                     }
                     cout <<endl;
                     cout << " Pasirinkite patiekalą : ";
-                    cin >> i;
-                    cout << endl;
                     _select = menuSelect(i, _eilesNumeris,1);
+                    cout << endl;
                     cout << " Pasirinkite patiekalų kiekį : ";
-                    cin >> i;
+                    i = menuSelect(i, 50,1);
                     cout << endl;
                     int _checker = false;
                     for ( int j = 0; j < _menuKiekis; j++) {
@@ -291,7 +256,6 @@ int task22() {
                         cout << "-----------------------------" << endl;
                         cout << "Grišti į pagrindinį menių - 0" << endl;
                         cout << "Pasirinkti kitą patiekalą - 1" << endl;
-                        cin >> i;
                         _select = menuSelect(i, 2,0);
                         if ( _select == 0) {break;}
                     } else if ( _checker == false) {
@@ -299,28 +263,53 @@ int task22() {
                         cout << "Jūs pasirinkote ne tinkamą kiekį arba Jūsų krepšelyje tokiso prekės nėra" << endl;
                         cout << "Grišti į pagrindinį menių - 0" << endl;
                         cout << "Pasirinkti kitą patiekalą - 1" << endl;
-                        cin >> i;
                         _select = menuSelect(i, 2,0);
                         if ( _select == 0) {break;}
                     }
                 }
             } break;
                 case 4: {
-                    int _krepselis = 0;
+                    if (krepselis(_menuKiekis,_patiekaluPasirinkimas)) {break;}
+                    string _raktas ="Kvito numeris: ";
+                    int _eilutesNumeris = 0;
+                    ifstream _rn("../3_praktinis/DB/receipt.txt");
+                    if (_rn.is_open()) {
+                        string _finder;
+                        int _lastNumeris = 0;
+                        while (getline(_rn,_finder)) {
+                            size_t _poz = _finder.find(_raktas);
+                            if (_poz != string::npos) {
+                                _lastNumeris= stoi(_finder.substr(_poz + _raktas.length()));
+                                if (_eilutesNumeris < _lastNumeris) {
+                                    _eilutesNumeris = _lastNumeris;
+                                }
+                            }
+                        }
+                        _rn.close();
+                    }
+                    _totalPrice = 0;
+                    printCheck(_tekstoIlgis,"\"Kaimynų\" Restoranas",0,_eilutesNumeris + 1,0,_pasirinkimas);
                     for (i = 0; i < _menuKiekis; i++) {
                         if (_patiekaluPasirinkimas[i][0] != 0) {
-                            _krepselis++;
+                            _totalPrice += _patiekaluPasirinkimas[i][0] * _menuList[i].menuPrice;
+                            _pasirinkimas = _patiekaluPasirinkimas[i][0];
+                            printCheck(_tekstoIlgis,_menuList[i].menuItem,_menuList[i].menuPrice,_eilutesNumeris + 1,1,_pasirinkimas);
+                            _eilesNumeris++;
                         }
                     }
-                    if (_krepselis == 0) {
-                        cout << "-------------------------------------------------" << endl;
-                        cout << " Jūsų krepšelis tusčias, prašome pasirinkti prekę" << endl;
-                        cout << " Spauskite ENTER kad testi" << endl;
-                        string wait;
-                        cin.ignore();
-                        getline(cin,wait);
-                        break;
+                    double _mokesciai = _totalPrice * 0.21;
+                    _totalPrice += _mokesciai;
+                    printCheck(_tekstoIlgis,"Mokesčiai (21%)",_mokesciai,_eilutesNumeris + 1,-1,-1);
+                    printCheck(_tekstoIlgis,"Galutinė suma",_totalPrice,_eilutesNumeris + 1,-2,-1);
+                    for ( int j = 0; j < _menuKiekis; j++) {
+                        _patiekaluPasirinkimas[j][0] = 0;
+                        _patiekaluPasirinkimas[j][1] = 0;
                     }
+                    cout << "--------------------------------------------" << endl;
+                    cout << " Spauskite ENTER kad pateikti nauja užsakymą" << endl;
+                    string wait;
+                    cin.ignore();
+                    getline(cin,wait);
                 } break;
         }
     }
@@ -366,6 +355,45 @@ void showMenu(int _tekstoIlgis, string _text, double _price, int _eilutesNumeris
         cout << format("{:<{}}{:>6.2f}€",_text,_tekstoIlgis + _lineKorekcija,_price) << endl;
     } else if (_select == -2) {
         cout << format("{:<{}}{:>6.2f}€",_text,_tekstoIlgis + _lineKorekcija,_price) << endl << endl;
+    }
+}
+
+void printCheck(int _tekstoIlgis, string _text, double _price, int _eilutesNumeris, int _select, int _pasirinkimas) {
+    string _raktas = "Kvito numeris: ";
+    ofstream _rf("../3_praktinis/DB/receipt.txt", ios::app); // receipt failas
+    if (_rf.fail()) {
+        cout << "--------------------------" << endl;
+        cout << "  Faila nepavyko atidaryti" << endl;
+        cout << " Spauskite ENTER kad testi" << endl;
+        string wait;
+        cin.ignore();
+        getline(cin,wait);
+    } else {
+        int _lineKorekcija;
+        _lineKorekcija = _text.length() - myliuLietuvybe(_text);
+
+        if (_select == 0 ) {
+            _rf << format("{:-<{}}","-",_tekstoIlgis + _lineKorekcija + 6) << endl;
+            _rf << format("{:<{}}{:<{}}","",_tekstoIlgis/2 - _text.length()/2,_text,_tekstoIlgis/2 - _text.length()/2) << endl;
+            _rf << format("{:-<{}}","-",_tekstoIlgis + _lineKorekcija + 6) << endl;
+            _rf << endl << endl;
+            return;
+        }
+
+        if (_pasirinkimas > 0) {
+            double _subTotal = _pasirinkimas * _price;
+            _rf << format("{:<{}}{:>6.2f}€",_text,_tekstoIlgis + _lineKorekcija,_price) << endl;
+            _rf << format("{:>{}}vnt x {} -{:>6.2f}€",_pasirinkimas,_tekstoIlgis - 15,_price,_subTotal) << endl;
+        }
+
+        if (_select == -1) {
+            _rf << endl;
+            _rf << format("{:<{}}{:>6.2f}€",_text,_tekstoIlgis + _lineKorekcija,_price) << endl;
+        } else if (_select == -2) {
+            _rf << format("{:<{}}{:>6.2f}€",_text,_tekstoIlgis + _lineKorekcija,_price) << endl << endl;
+            _rf << format("Kvito numeris: {}",_eilutesNumeris) << endl;
+            _rf << format("{:-<{}}","-",_tekstoIlgis + _lineKorekcija + 6) << endl;
+        }
     }
 }
 
@@ -436,12 +464,38 @@ int myliuLietuvybe(const string& txt) {
 
 int menuSelect(int _select, int _kiekis, int _notNULL) { //start _notNULL
     while (true) {
+        while (!(cin >> _select) || _select < 0) {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+            cout << "------------------------------------------------" << endl;
+            cout << ">> Pasirinkimas ne tinkamas, rinkites iš menių<<" << endl;
+            cout << ">>Pakartokite įvedimą" << endl;
+        }
+
         if ( _select >= _notNULL && _select <= _kiekis) {
             return _select;
         }
         cout << "------------------------------------------------" << endl;
         cout << ">> Pasirinkimas ne tinkamas, rinkites iš menių<<" << endl;
         cout << ">>Pakartokite įvedimą" << endl;
-        cin >> _select;
     }
+}
+
+bool krepselis(int _menuKiekis, int _patiekaluPasirinkimas[][2]) {
+    int _krepselis = 0;
+    for ( int i = 0; i < _menuKiekis; i++) {
+        if (_patiekaluPasirinkimas[i][0] != 0) {
+            _krepselis++;
+        }
+    }
+    if (_krepselis == 0) {
+        cout << "-------------------------------------------------" << endl;
+        cout << " Jūsų krepšelis tusčias, prašome pasirinkti prekę" << endl;
+        cout << " Spauskite ENTER kad testi" << endl;
+        string wait;
+        cin.ignore();
+        getline(cin,wait);
+        return true;
+    }
+    return false;
 }
