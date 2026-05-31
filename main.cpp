@@ -34,6 +34,8 @@ int K2();
 int K3();
 //----3_praktinis ---
 int task22();
+//----Kursinis ----
+int task23();
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -50,6 +52,7 @@ int main() {
     cout << "Kontrolionio scriptas 2 - >>20<<"<<endl;
     cout << "Kontrolionio scriptas 3 - >>21<<"<<endl;
     cout << "Trevias praktinis - iskaitai - >>22<<"<<endl;
+    cout << "Generacija random duomenu - >>23<<"<<endl;
     cin >> p;
 
     if (p == 1) return task1();
@@ -81,6 +84,8 @@ int main() {
     if (p == 21) return K3();
     //----------
     if (p == 22) return task22();
+    //----------
+    if (p == 23) return task23();
 
     cout << "Neteisingas pasirinkimas\n";
     return 0;

@@ -311,6 +311,7 @@ int task22() {
                     cin.ignore();
                     getline(cin,wait);
                 } break;
+                default:break;
         }
     }
 }
@@ -318,11 +319,11 @@ int task22() {
 void showMenu(int _tekstoIlgis, string _text, double _price, int _eilutesNumeris, int _select, int _pasirinkimas) {
     string _menuName = "Meniu";
     string _showText;
-    int _start = 0;
     int _lineKorekcija;
     _lineKorekcija = _text.length() - myliuLietuvybe(_text);
 
     if (_select == 0) {
+        int _start = 0;
         _start = _tekstoIlgis - _menuName.length();
         for (int i = 0; i < _start/2; i++) {
             cout << " ";
