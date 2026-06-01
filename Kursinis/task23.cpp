@@ -29,17 +29,30 @@ int task23() {
         return 0;
     }
 
+    //Menu select
+    cout << "Pasirinkti Random generacija: 1" << endl;
+    cout << "Pasirinkti Atvirkstini uzpildyma: 2" << endl;
+    int _ms;
+    cin >> _ms;
+
     random_device _rn;
     mt19937 _gen(_rn());
     uniform_int_distribution<int> _dist(_minRiba, _maxRiba);
-
-    for (int i = 0; i < _kiekis; i++) {
-        if ( i != _kiekis - 1 ) {
-            _failas << _dist(_gen) << '\n';
-        } else {
-            _failas << _dist(_gen);
+    if (_ms == 1) {
+        for (int i = 0; i < _kiekis; i++) {
+            if ( i != _kiekis - 1 ) {
+                _failas << _dist(_gen) << '\n';
+            } else {
+                _failas << _dist(_gen);
+            }
         }
     }
+    if (_ms == 2) {
+        for (int i = 0; i < _kiekis; i++) {
+            _failas << _kiekis - i << '\n';
+        }
+    }
+
     _failas.close();
 
     cout << "Sugeneruota " << _kiekis << " skaiciu i faila " << _fileName << endl;
