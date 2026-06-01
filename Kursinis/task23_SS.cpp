@@ -5,11 +5,13 @@
 #include <chrono>
 using namespace std;
 
-void selectionSort(vector<int>& _data); //SelectionSort F-ja
-void maxHeapify(vector<int>& _data, int _size, int _select); //Heap(piramides) kurimas/atstatymas F-ja
-void heapSort(vector<int>& _data); //HeapSort F-ja
+void selectionSort(vector<int>& _data, long long& _palyginimai, long long& _sukeitimai); //SelectionSort F-ja
+void maxHeapify(vector<int>& _data, int _size, int _select, long long& _palyginimai, long long& _sukeitimai); //Heap(piramides) kurimas/atstatymas F-ja
+void heapSort(vector<int>& _data, long long& _palyginimai, long long& _sukeitimai); //HeapSort F-ja
 
 int task23_SS() {
+    long long _palyginimai = 0;
+    long long _sukeitimai = 0;
     string _inputFile; //Failo is kurio nuskaitys kintamasis (pavadinimas)
     string _outputFile;//Failo i kuri irasis kintamasis (pavadinimas)
     // Is kokio failo ims
@@ -47,11 +49,11 @@ int task23_SS() {
     switch (_ms) {
         // Selection
         case 1: {
-            selectionSort(_numbers);
+            selectionSort(_numbers, _palyginimai, _sukeitimai);
         }break;
             // Heap
             case 2: {
-                heapSort(_numbers);
+                heapSort(_numbers,_palyginimai, _sukeitimai);
         }break;
             // Exit
             default:{
@@ -87,29 +89,33 @@ int task23_SS() {
     //Isvedimas rezultato (elementu kiekis ir laikas rikiavimui
     cout << "Elementu kiekis: " << _numbers.size() << endl;
     cout << "Rikiavimo laikas: " << _duration.count() << " microSec" << endl;
+    cout << "Palyginimu skaicius: " << _palyginimai << endl;
+    cout << "Sukeitimu skaicius: " << _sukeitimai << endl;
     return 0;
 }
 
 
 //Selection Sort
-void selectionSort(vector<int>& _data) { //Paima originala, kopija letintu algoritma
+void selectionSort(vector<int>& _data, long long& _palyginimai, long long& _sukeitimai) { //Paima originala, kopija letintu algoritma
     int _size = _data.size(); //Ziurim vectoriaus ilgi
     for (int i = 0; i < _size - 1; i++) { //Tikrinamo elemento indexas
         int _minIndex = i; //Traktuojamas kaip maziausios elemento indexas
         for (int j = i + 1; j < _size; j++) { //Su kurio tikriname indexas
+            _palyginimai++;
             if (_data[j] < _data[_minIndex]) { //Maziausio elemento patikra
                 _minIndex = j;
             }
         }
         if (_minIndex != i) { //Jeigu rastas maziasnis elementas, sukeciamas
             swap(_data[i], _data[_minIndex]);
+            _sukeitimai++;
         }
     }
 }
 
 // HeapSort
 //Paima orginalu vectoriu, ilgi, sakninio elemento indexa
-void maxHeapify(vector<int>& _data, int _size, int _select) {
+void maxHeapify(vector<int>& _data, int _size, int _select, long long& _palyginimai, long long& _sukeitimai) {
     int _didziausiasElementas = _select; //sakninis elementas
     int _left = 2 * _select + 1; // kairine saka
     int _right = 2 * _select + 2; //desinine saka
@@ -117,27 +123,31 @@ void maxHeapify(vector<int>& _data, int _size, int _select) {
     // tikriname ar indexas ne iskrenta is vectoriaus, ar kairinis ne didesnis uz sakni
     if (_left < _size && _data[_left] > _data[_didziausiasElementas]) {
         _didziausiasElementas = _left; //Jeigu didesnis priskiriame index`a
+        _palyginimai++;
     }
     // tikriname ar indexas ne iskrenta is vectoriaus, ar desininis ne didesnis uz sakni
     if (_right < _size && _data[_right] > _data[_didziausiasElementas]) {
         _didziausiasElementas = _right; //Jeigu didesnis priskiriame index`a
+        _palyginimai++;
     }
     // tikriname ar didesnio elemento indexas tas pats, jeignu ne, sukeiciam elementus
     if (_didziausiasElementas != _select) {
         swap(_data[_select], _data[_didziausiasElementas]);
-        maxHeapify(_data, _size, _didziausiasElementas); //Reuksinam funkcija
+        _sukeitimai++;
+        maxHeapify(_data, _size, _didziausiasElementas, _palyginimai, _sukeitimai); //Reuksinam funkcija
     }
 }
 //Paimam orginalu vectoriu
-void heapSort(vector<int>& _data) {
+void heapSort(vector<int>& _data, long long& _palyginimai, long long& _sukeitimai) {
     int _size = _data.size(); //Ziurim vectoriaus ilgi
     // Einam per visus mazgus nuo apacios i virsu
     for (int i = _size / 2 - 1; i >= 0; i--){
-        maxHeapify(_data, _size, i);
+        maxHeapify(_data, _size, i, _palyginimai, _sukeitimai);
     }
     //Po viena elementa keliam i galutine vieta
     for (int i = _size - 1; i > 0; i--) {
         swap(_data[0], _data[i]);
-        maxHeapify(_data, i, 0);
+        _sukeitimai++;
+        maxHeapify(_data, i, 0, _palyginimai, _sukeitimai);
     }
 }
