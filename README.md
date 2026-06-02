@@ -30,3 +30,16 @@
 3. Galimybė papildyti užsakymą
 4. Print Check automatiškai išvalo įvesties buferį ir siūlo užpildyti naują užsakymą
 5. Receipt numeruojamas, kvito numeris generuojamas automatiškai ir tęsiamas
+## 2026-06-02 - Kursinis darbas
+### Menu pasirinkimas - 23 (task 23)
+1. Duomenų generacija atsitiktine tvarka
+2. Duomenų generacija atvirkštine tvarka
+- Pasirinkti failo pavadinimą
+- Pasirinkti duomenų kiekį
+- Pasiriknti generuojamų duomenų ribas
+### Menu pasirinkimas - 24 (task 23_SS)
+1. Selection Sort algoritmas
+2. Heap Sort algoritmas
+- Pasirinkimas iš nurodyto failo (Įrašyti)
+- Pasirinkimas į kokį failą bus įkelti rezultatai (Įrašyti failo pavadinimą)
+- Išvestis duomenų (Laikas, Tvarkitų duomenų kiekis, Sukeitimų kiekis, Paliginimų kiekis)
