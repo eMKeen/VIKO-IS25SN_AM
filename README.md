@@ -42,4 +42,4 @@
 2. Heap Sort algoritmas
 - Pasirinkimas iš nurodyto failo (Įrašyti)
 - Pasirinkimas į kokį failą bus įkelti rezultatai (Įrašyti failo pavadinimą)
-- Išvestis duomenų (Laikas, Tvarkitų duomenų kiekis, Sukeitimų kiekis, Paliginimų kiekis)
+- Išvestis duomenų (Laikas, Tvarkitų duomenų kiekis, Sukeitimų kiekis, Palyginimų kiekis)
